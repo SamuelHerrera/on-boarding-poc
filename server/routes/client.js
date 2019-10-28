@@ -1,8 +1,10 @@
 import { Router } from 'express';
 const router = Router();
-import { getAllClients } from '../services/client.service';
+import { getAll, getByName, create } from '../services/client.service';
 
 router.get('/', function (req, res, next) { res.send('CLIENT') });
-router.get('/all', getAllClients);
+router.get('/all', getAll);
+router.get('/by-name/:name', getByName);
+router.post('/create/', create);
 
 export default router;

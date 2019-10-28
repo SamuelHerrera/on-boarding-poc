@@ -19,7 +19,7 @@ app.use(urlencoded({
     extended: true
 }));
 
-api.use(neo4jSessionCleanup);
+app.use(neo4jSessionCleanup);
 
 // API location
 app.use('/api', api);

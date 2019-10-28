@@ -1,7 +1,7 @@
-import * as client from '../models/clients.model';
+import * as project from '../models/projects.model';
 
 export function getAll(req, res, next) {
-    client.getAll(req).subscribe(response => {
+    project.getAll(req).subscribe(response => {
         res.write(JSON.stringify(response));
     }, error => {
         console.log(error)
@@ -11,7 +11,17 @@ export function getAll(req, res, next) {
 };
 
 export function getByName(req, res, next) {
-    client.getByName(req).subscribe(response => {
+    project.getByName(req).subscribe(response => {
+        res.write(JSON.stringify(response));
+    }, error => {
+        console.log(error)
+    }, () => {
+        res.end();
+    });
+};
+
+export function getByClient(req, res, next) {
+    project.getByClient(req).subscribe(response => {
         res.write(JSON.stringify(response));
     }, error => {
         console.log(error)
@@ -21,7 +31,7 @@ export function getByName(req, res, next) {
 };
 
 export function create(req, res, next) {
-    client.create(req).subscribe(response => {
+    project.create(req).subscribe(response => {
         res.write(JSON.stringify(response));
     }, error => {
         console.log(error)

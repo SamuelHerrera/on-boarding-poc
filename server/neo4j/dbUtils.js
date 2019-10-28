@@ -8,7 +8,7 @@ if (process.env.DATABASE_REMOTE) {
     neo4j.auth.basic(process.env.DATABASE_REMOTE_USER, process.env.DATABASE_REMOTE_PASS));
 }
 
-var getSession = function (context) {
+export function getNeo4jSession(context) {
   if (context.neo4jSession) {
     return context.neo4jSession;
   }
@@ -16,7 +16,4 @@ var getSession = function (context) {
     context.neo4jSession = driver.session();
     return context.neo4jSession;
   }
-}
-module.exports = {
-  getSession: getSession
 }
