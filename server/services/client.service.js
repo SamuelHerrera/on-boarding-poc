@@ -1,31 +1,33 @@
 import * as client from '../models/clients.model';
 
 export function getAll(req, res, next) {
-    client.getAll(req).subscribe(response => {
-        res.write(JSON.stringify(response));
-    }, error => {
+    client.getAll(req).then(result => {
+        res.send(result);
+    }).catch(error => {
         console.log(error)
-    }, () => {
-        res.end();
+    });
+}
+
+export function getByName(req, res, next) {
+    client.getByName(req).then(result => {
+        res.send(result);
+    }).catch(error => {
+        console.log(error)
     });
 };
 
-export function getByName(req, res, next) {
-    client.getByName(req).subscribe(response => {
-        res.write(JSON.stringify(response));
-    }, error => {
+export function searchByName(req, res, next) {
+    client.searchByName(req).then(result => {
+        res.send(result);
+    }).catch(error => {
         console.log(error)
-    }, () => {
-        res.end();
     });
 };
 
 export function create(req, res, next) {
-    client.create(req).subscribe(response => {
-        res.write(JSON.stringify(response));
-    }, error => {
+    client.create(req).then(result => {
+        res.send(result);
+    }).catch(error => {
         console.log(error)
-    }, () => {
-        res.end();
     });
 };

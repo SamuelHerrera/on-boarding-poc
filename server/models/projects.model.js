@@ -3,80 +3,32 @@ import { getNeo4jSession } from '../neo4j/dbUtils';
 
 export function getAll(req) {
     let session = getNeo4jSession(req);
-    return new Observable((subscriber) => {
-        session.run('MATCH (e:PROJECT) RETURN e').subscribe({
-            onNext: (record) => {
-                subscriber.next(record.get('e'));
-            },
-            onCompleted: () => {
-                subscriber.complete();
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        });
-    });
+    return session.run('MATCH (e:PROJECT) RETURN e').then(r => r.records.map(e => e.get('e')));
 };
 
 export function getByName(req) {
     let session = getNeo4jSession(req);
-    return new Observable((subscriber) => {
-        session.run('MATCH (e:PROJECT) WHERE e.name = $name RETURN e',
-            { name: req.params.name }
-        ).subscribe({
-            onNext: (record) => {
-                subscriber.next(record.get('e'));
-            },
-            onCompleted: () => {
-                subscriber.complete();
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        });
-    });
+    return session.run('MATCH (e:PROJECT) WHERE e.name = $name RETURN e',
+        { name: req.params.name }
+    ).then(r => r.records.map(e => e.get('e')));
 };
 
 export function getByClient(req) {
     let session = getNeo4jSession(req);
-    return new Observable((subscriber) => {
-        session.run(`MATCH (e:PROJECT)-[:BELONG]->(c:CLIENT) 
+    return session.run(`MATCH (e:PROJECT)-[:BELONG]->(c:CLIENT) 
         WHERE c.name = $name 
         RETURN e`,
-            { name: req.params.client }
-        ).subscribe({
-            onNext: (record) => {
-                subscriber.next(record.get('e'));
-            },
-            onCompleted: () => {
-                subscriber.complete();
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        });
-    });
+        { name: req.params.client }
+    ).then(r => r.records.map(e => e.get('e')));
 };
 
 export function create(req) {
     let session = getNeo4jSession(req);
-    return new Observable((subscriber) => {
-        session.run(`
+    return session.run(`
         MATCH (c:CLIENT) where c.name=$client
         CREATE (e:PROJECT {name: $name})-[:BELONG]->(p)
         RETURN e`, {
-            name: req.body.name,
-            client: req.body.client
-        }).subscribe({
-            onNext: (record) => {
-                subscriber.next(record.get('e'));
-            },
-            onCompleted: () => {
-                subscriber.complete();
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        });
-    });
+        name: req.body.name,
+        client: req.body.client
+    }).then(r => r.records.map(e => e.get('e')));
 };

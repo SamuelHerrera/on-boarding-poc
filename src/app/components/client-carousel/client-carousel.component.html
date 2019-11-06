@@ -1,0 +1,20 @@
+<p-carousel [value]="clients" [numVisible]="8" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
+    <p-header>
+        <h3>Clients</h3>
+    </p-header>
+    <ng-template let-client pTemplate="item">
+        <div class="client-details">
+            <div class="p-grid p-nogutter">
+                <div class="p-col-12">
+                    <img src="" />
+                </div>
+                <div class="p-col-12 client-data">
+                    <div class="client-title">{{client.properties.name}}</div>
+                    <div class="client-buttons">
+                        <button pButton type="button" class="ui-button-secondary" icon="pi pi-circle-on"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

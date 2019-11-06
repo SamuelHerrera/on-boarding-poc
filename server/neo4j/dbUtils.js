@@ -1,7 +1,8 @@
 import { v1 as neo4j } from 'neo4j-driver';
 console.log(`Database URL: ${process.env.DATABASE_URL} remote: ${process.env.DATABASE_REMOTE}`)
 var driver = neo4j.driver(process.env.DATABASE_URL,
-  neo4j.auth.basic(process.env.DATABASE_USER, process.env.DATABASE_PASS));
+  neo4j.auth.basic(process.env.DATABASE_USER, process.env.DATABASE_PASS),
+  { disableLosslessIntegers: true });
 
 if (process.env.DATABASE_REMOTE) {
   driver = neo4j.driver(process.env.DATABASE_REMOTE_URL,

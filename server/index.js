@@ -3,7 +3,7 @@ import { json, urlencoded } from 'body-parser';
 import { createServer } from 'http';
 import LogRocket from 'logrocket';
 import api from './routes/api.js';
-import { neo4jSessionCleanup } from './middleware/neo4jSessionCleanup';
+import { neo4jSessionCleanup } from './middleware/neo4j-session-cleanup';
 
 require('dotenv').config();
 
